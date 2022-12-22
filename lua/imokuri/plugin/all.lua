@@ -1,5 +1,6 @@
 return {
 
+    -- Color scheme
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -49,6 +50,7 @@ return {
         end,
     },
 
+    -- Status line
     {
         "nvim-lualine/lualine.nvim",
         dependencies = {
@@ -69,6 +71,80 @@ return {
                     lualine_z = {},
                 },
             })
+
+        end,
+    },
+
+    -- UI
+    {
+        "folke/noice.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        },
+        event = "VimEnter",
+        config = function()
+            require("noice").setup({
+                routes = {
+                    {
+                        -- 20行以上の出力は split 画面で表示する
+                        view = "split",
+                        filter = { event = "msg_show", min_height = 20 },
+                    },
+                    {
+                        -- マクロ記録開始を表示する
+                        view = "notify",
+                        filter = { event = "msg_showmode" },
+                    },
+                    {
+                        view = "mini",
+                        filter = {
+                            event = "msg_show",
+                            kind = "",
+                            any = {
+                                { find = "fewer lines" }, -- 複数行削除
+                                { find = "more lines" }, -- 複数行追加
+                                { find = "written" }, -- ファイル保存
+                                { find = "yanked" }, -- コピー
+                            },
+                        },
+                    },
+                },
+                lsp = {
+                    hover = {
+                        opts = {
+                            border = "single",
+                        },
+                    },
+                    signature = {
+                        opts = {
+                            border = "single",
+                        },
+                    },
+                },
+            })
+
+        end,
+    },
+
+    -- Terminal
+    {
+        "kassio/neoterm",
+        keys = {
+            "<C-t>",
+            "<C-g>",
+        },
+        config = function()
+            vim.g.neoterm_autoscroll = 1
+            vim.g.neoterm_default_mod = "botright"
+            vim.g.neoterm_repl_python = "python"
+            vim.g.neoterm_automap_keys = ""
+
+            vim.keymap.set("n", "<C-t>", "<Cmd>Ttoggle<CR>")
+            vim.keymap.set("t", "<C-t>", "<C-\\><C-n><Cmd>Ttoggle<CR>")
+
+            vim.keymap.set("n", "<C-g>", "<Cmd>Topen<CR><C-w>bi")
+            vim.keymap.set("t", "<C-g>", "<C-\\><C-n><C-w>p")
 
         end,
     },
