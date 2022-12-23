@@ -1,0 +1,11 @@
+- hosts: localhost
+  tasks:
+    - debug:
+        msg: {{_cursor_}}
+
+- hosts: localhost
+  roles:
+    - role: role_name
+      tags:
+        - aaa
+        - bbb
