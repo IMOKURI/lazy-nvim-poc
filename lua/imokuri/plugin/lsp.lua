@@ -79,7 +79,7 @@ return {
                             "sh",
                             "lua",
                             "yaml",
-                            "yaml.ansible",
+                            "json",
                         },
                         init_options = {
                             formatters = {
@@ -99,14 +99,14 @@ return {
                                         "--stdin-filepath",
                                         "%filepath",
                                     },
-                                    rootPatterns = { ".prettierrc.json", ".git" },
+                                    rootPatterns = { ".git" },
                                 },
                             },
                             formatFiletypes = {
                                 sh = "shfmt",
                                 lua = "stylua",
                                 yaml = "prettier",
-                                ["yaml.ansible"] = "prettier",
+                                json = "prettier",
                             },
                         },
                     })
