@@ -1,5 +1,4 @@
 return {
-
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -22,6 +21,11 @@ return {
             "CmdlineEnter",
             "InsertEnter",
         },
+        init = function()
+            vim.g.vsnip_snippet_dirs = {
+                string.format("%s/snippet", vim.fn.stdpath("config")),
+            }
+        end,
         config = function()
             local cmp = require("cmp")
             local compare = require("cmp.config.compare")
@@ -31,11 +35,6 @@ return {
             local feedkey = function(key, mode)
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
             end
-
-            vim.g.vsnip_snippet_dirs = {
-                string.format("%s/snippet", vim.fn.stdpath("config")),
-            }
-
 
             cmp.setup({
                 window = {
@@ -81,8 +80,14 @@ return {
                 mapping = {
                     ["<C-b>"] = mapping(mapping.scroll_docs(-4), { "i", "c" }),
                     ["<C-f>"] = mapping(mapping.scroll_docs(4), { "i", "c" }),
-                    ["<C-p>"] = mapping(mapping.select_prev_item({ behavior = types.cmp.SelectBehavior.Insert }), { "i", "c" }),
-                    ["<C-n>"] = mapping(mapping.select_next_item({ behavior = types.cmp.SelectBehavior.Insert }), { "i", "c" }),
+                    ["<C-p>"] = mapping(
+                        mapping.select_prev_item({ behavior = types.cmp.SelectBehavior.Insert }),
+                        { "i", "c" }
+                    ),
+                    ["<C-n>"] = mapping(
+                        mapping.select_next_item({ behavior = types.cmp.SelectBehavior.Insert }),
+                        { "i", "c" }
+                    ),
                     ["<C-Space>"] = mapping(mapping.complete(), { "i", "c" }),
                     ["<C-e>"] = mapping({
                         i = mapping.abort(),
@@ -125,7 +130,6 @@ return {
                             fallback()
                         end
                     end,
-
                 },
 
                 sources = cmp.config.sources({
@@ -158,7 +162,6 @@ return {
                 },
             })
 
-
             -- Use buffer source for `/`.
             cmp.setup.cmdline("/", {
                 sources = cmp.config.sources({
@@ -176,12 +179,8 @@ return {
                     { name = "cmdline" },
                 }),
             })
-
-
-
         end,
     },
-
 
     {
         "windwp/nvim-autopairs",
@@ -190,7 +189,6 @@ return {
             "InsertEnter",
         },
         config = function()
-
             local npairs = require("nvim-autopairs")
             local Rule = require("nvim-autopairs.rule")
 
@@ -240,13 +238,6 @@ return {
                     end)
                     :use_key("]"),
             })
-
-
         end,
     },
-
-
-
 }
-
-

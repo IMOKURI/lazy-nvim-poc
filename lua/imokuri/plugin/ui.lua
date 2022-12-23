@@ -1,11 +1,10 @@
 return {
-
     -- Color scheme
     {
         "catppuccin/nvim",
         name = "catppuccin",
         build = function()
-            require('catppuccin').compile()
+            require("catppuccin").compile()
         end,
         config = function()
             local catppuccin = require("catppuccin")
@@ -46,7 +45,6 @@ return {
                 cmd = "colorscheme",
                 args = { "catppuccin" },
             }, {})
-
         end,
     },
 
@@ -71,7 +69,6 @@ return {
                     lualine_z = {},
                 },
             })
-
         end,
     },
 
@@ -123,9 +120,6 @@ return {
                     },
                 },
             })
-
         end,
     },
-
-
 }

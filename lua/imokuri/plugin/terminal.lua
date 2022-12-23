@@ -1,5 +1,4 @@
 return {
-
     -- Terminal
     {
         "kassio/neoterm",
@@ -18,10 +17,6 @@ return {
 
             vim.keymap.set("n", "<C-g>", "<Cmd>Topen<CR><C-w>bi")
             vim.keymap.set("t", "<C-g>", "<C-\\><C-n><C-w>p")
-
         end,
     },
-
-
-
 }
