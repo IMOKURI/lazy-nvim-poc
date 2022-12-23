@@ -39,6 +39,20 @@ return {
             local actions = require("telescope.actions")
             local action_layout = require("telescope.actions.layout")
 
+            function TelescopeProjectFiles(opts)
+                opts = opts or {}
+                opts.show_untracked = true
+                if vim.loop.fs_stat(".git") then
+                    require("telescope.builtin").git_files(opts)
+                else
+                    local client = vim.lsp.get_active_clients()[1]
+                    if client then
+                        opts.cwd = client.config.root_dir
+                    end
+                    require("telescope.builtin").find_files(opts)
+                end
+            end
+
             vim.keymap.set("n", "<Leader>D", "<Cmd>lua require('telescope.builtin').diagnostics({})<CR>")
             vim.keymap.set(
                 "n",
@@ -50,12 +64,7 @@ return {
             vim.keymap.set("n", "<Leader>b", "<Cmd>lua require('telescope.builtin').buffers()<CR>")
             vim.keymap.set("n", "<Leader>d", "<Cmd>lua require('telescope.builtin').diagnostics({ bufnr = 0 })<CR>")
             vim.keymap.set("n", "<Leader>e", "<Cmd>lua require('telescope').extensions.file_browser.file_browser()<CR>")
-            -- vim.keymap.set("n", "<Leader>f", "<Cmd>lua require('imokuri.plugin.ff').project_files()<CR>")
-            vim.keymap.set(
-                "n",
-                "<Leader>f",
-                "<Cmd>lua require('telescope.builtin').git_files({ show_untracked = true })<CR>"
-            )
+            vim.keymap.set("n", "<Leader>f", "<Cmd>lua TelescopeProjectFiles()<CR>")
             vim.keymap.set(
                 "n",
                 "<Leader>g",

@@ -8,6 +8,7 @@ return {
             "smjonas/inc-rename.nvim",
             "williamboman/mason.nvim",
         },
+        event = "VimEnter",
         config = function()
             local servers = {
                 "diagnosticls",
